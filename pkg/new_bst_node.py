@@ -42,7 +42,7 @@ class BSTNode:
 
     def delete(self, val):
         if self.val is None:
-            return
+            return None
         elif val < self.val:
             if self.left is not None:
                 self.left = self.left.delete()
