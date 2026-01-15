@@ -2,7 +2,7 @@ import random
 
 
 class User:
-    def __init__(self, id):
+    def __init__(self, id, age, job_title):
         self.id = id
         user_names = [
             "Blake",
@@ -26,6 +26,8 @@ class User:
             "Moses",
         ]
         self.user_name = f"{user_names[id % len(user_names)]}#{id}"
+        self.age = age
+        self.job_title = job_title
 
     def __eq__(self, other):
         return isinstance(other, User) and self.id == other.id
@@ -37,18 +39,20 @@ class User:
         return isinstance(other, User) and self.id > other.id
 
     def __repr__(self):
-        return "".join(self.user_name)
+        parts = self.user_name.split("#")
+        return f"(Name: {parts[0]}, ID: {self.id}, Age: {self.age}, Job Title: {self.job_title})"
 
 
 def get_users(num):
     random.seed(1)
+    job_titles = ["Engineer", "Designer", "Manager", "Clerk", "Analyst"]
     users = []
-    ids = []
-    for i in range(num * 3):
-        ids.append(i)
+    ids = list(range(num * 3))
     random.shuffle(ids)
     ids = ids[:num]
     for id in ids:
-        user = User(id)
+        age = random.randint(20, 60)
+        job_title = random.choice(job_titles)
+        user = User(id, age, job_title)
         users.append(user)
     return users
